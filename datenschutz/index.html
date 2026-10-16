@@ -7,13 +7,14 @@
   <meta name="theme-color" content="#0B0B0D">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <script>(function(){var t=null;try{t=localStorage.getItem('ruby-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}document.documentElement.setAttribute('data-theme',t)})();</script>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <header class="top">
     <div class="wrap">
       <a class="brand" href="/" aria-label="Ruby Startseite"><img src="/assets/logo.png" alt=""><span>Ruby</span></a>
-      <nav aria-label="Hauptnavigation"><a href="/impressum/">Impressum</a></nav>
+      <nav aria-label="Hauptnavigation"><a href="/impressum/">Impressum</a><button class="theme-toggle" type="button" aria-label="Design wechseln" title="Design wechseln"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button></nav>
     </div>
   </header>
 
@@ -29,7 +30,7 @@
       <li>Ruby braucht <strong>kein Konto</strong> und hat <strong>keinen eigenen Server</strong>.</li>
       <li>Gruppen, Termine, Fotos, Rubies und Vorlieben liegen <strong>nur auf deinem Handy</strong>.</li>
       <li>Daten verlassen dein Handy nur, wenn du etwas teilst (Ruby-Links) oder eine Funktion Infos aus dem Netz holt, etwa Wetter oder Orte.</li>
-      <li>Die Webseite setzt <strong>keine Cookies</strong> und nutzt <strong>kein Tracking</strong>. Schriften liegen auf unserem Server, es werden keine Google Fonts geladen.</li>
+      <li>Die Webseite setzt <strong>keine Cookies</strong> und nutzt <strong>kein Tracking</strong>. Schriften liegen auf unserem Server, es werden keine Google Fonts geladen. Ob du das helle oder dunkle Design gewählt hast, merkt sich nur dein Browser.</li>
     </ul>
 
     <h2>1. Verantwortlicher</h2>
@@ -45,6 +46,9 @@
     <h3>Hosting und Server-Protokolle</h3>
     <p>Die Webseite wird über GitHub Pages bereitgestellt, einen Dienst der GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Daten, zum Beispiel deine IP-Adresse, Datum und Uhrzeit, die aufgerufene Seite und Informationen zu Browser und Betriebssystem. Laut GitHub werden IP-Adressen von Besuchern aus Sicherheitsgründen protokolliert. Wir selbst werten diese Daten nicht aus.</p>
     <p>Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren und funktionierenden Webseite (Art. 6 Abs. 1 lit. f DSGVO). Dabei können Daten in die USA übermittelt werden. GitHub stützt solche Übermittlungen auf <span class="ph">[aktuelle Grundlage prüfen, z. B. EU-US Data Privacy Framework oder Standardvertragsklauseln]</span>. Mehr dazu in der <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">Datenschutzerklärung von GitHub</a>.</p>
+
+    <h3>Helles und dunkles Design</h3>
+    <p>Wenn du das Design umschaltest, speichert dein Browser diese Wahl im lokalen Speicher (localStorage), damit die Seite beim nächsten Besuch gleich aussieht. Die Angabe bleibt auf deinem Gerät und wird nicht an uns übertragen. Du kannst sie jederzeit über die Browser-Einstellungen löschen. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG, da die Speicherung für die von dir gewünschte Funktion erforderlich ist.</p>
 
     <h3>Warteliste</h3>
     <p>Wenn du dich auf die Warteliste setzt, öffnet sich eine vorbereitete E-Mail an uns. Wir speichern deine E-Mail-Adresse nur, um dir einmal Bescheid zu geben, sobald Ruby verfügbar ist. Danach löschen wir sie, spätestens <span class="ph">[z. B. 3 Monate]</span> nach dem Start. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Du kannst sie jederzeit per E-Mail widerrufen. Die E-Mail liegt bei unserem E-Mail-Anbieter <span class="ph">[Name des E-Mail-Anbieters]</span>.</p>

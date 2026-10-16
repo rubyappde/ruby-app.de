@@ -2,6 +2,37 @@
 (function () {
   var cfg = window.RUBY || {};
 
+  // Helles / dunkles Design: Wahl wird nur im Browser gemerkt (kein Cookie)
+  var root = document.documentElement;
+  var meta = document.querySelector('meta[name="theme-color"]');
+  var applyTheme = function (t) {
+    root.setAttribute('data-theme', t);
+    if (meta) meta.setAttribute('content', t === 'light' ? '#F6F5F2' : '#0B0B0D');
+    document.querySelectorAll('.theme-toggle').forEach(function (b) {
+      var toLight = t !== 'light';
+      b.setAttribute('aria-label', toLight ? 'Helles Design einschalten' : 'Dunkles Design einschalten');
+      b.setAttribute('title', toLight ? 'Helles Design' : 'Dunkles Design');
+    });
+  };
+  applyTheme(root.getAttribute('data-theme') || 'dark');
+  document.querySelectorAll('.theme-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem('ruby-theme', next); } catch (e) { /* privates Fenster: dann eben nur für diesen Besuch */ }
+    });
+  });
+  // Ohne eigene Wahl: dem Handy bzw. Computer folgen, auch wenn es später umschaltet
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: light)');
+    var follow = function () {
+      var saved = null;
+      try { saved = localStorage.getItem('ruby-theme'); } catch (e) {}
+      if (saved !== 'light' && saved !== 'dark') applyTheme(mq.matches ? 'light' : 'dark');
+    };
+    if (mq.addEventListener) mq.addEventListener('change', follow); else if (mq.addListener) mq.addListener(follow);
+  }
+
   // Kopfzeile bekommt beim Scrollen eine feine Linie
   var top = document.querySelector('.top');
   if (top) {
