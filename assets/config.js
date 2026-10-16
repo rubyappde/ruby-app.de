@@ -3,7 +3,7 @@
 // ============================================================
 window.RUBY = {
   // Deine Kontakt-E-Mail (für Warteliste und Kontakt). Bitte ersetzen.
-  email: 'hallo@ruby-app.de',
+  email: 'kontakt@ruby-app.de',
 
   // Optional: Formular-Dienst für die Warteliste (z. B. Formspree).
   // Leer lassen = „Auf die Warteliste“ öffnet eine vorbereitete E-Mail an die Adresse oben.

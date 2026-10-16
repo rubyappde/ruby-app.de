@@ -63,6 +63,40 @@
     document.querySelectorAll('[data-mailto]').forEach(function (el) { el.href = 'mailto:' + cfg.email; });
   }
 
+  // Trailer: spielt stumm, sobald er im Bild ist; Ton nur auf Wunsch
+  var vid = document.getElementById('trailer');
+  if (vid) {
+    var frame = vid.parentNode;
+    var playBtn = frame.querySelector('.vid-play');
+    var soundBtn = frame.querySelector('.vid-sound');
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var userPaused = false;
+    var play = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); };
+    vid.addEventListener('play', function () { frame.classList.add('playing'); soundBtn.hidden = false; });
+    vid.addEventListener('pause', function () { frame.classList.remove('playing'); });
+    playBtn.addEventListener('click', function () { userPaused = false; play(); });
+    vid.addEventListener('click', function () {
+      if (vid.paused) { userPaused = false; play(); } else { userPaused = true; vid.pause(); }
+    });
+    soundBtn.addEventListener('click', function () {
+      vid.muted = !vid.muted;
+      soundBtn.classList.toggle('unmuted', !vid.muted);
+      soundBtn.setAttribute('aria-label', vid.muted ? 'Ton einschalten' : 'Ton ausschalten');
+      if (!vid.muted && vid.paused) play();
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+            if (!calm && !userPaused) play();
+          } else if (!vid.paused) {
+            vid.pause();
+          }
+        });
+      }, { threshold: [0, 0.5] }).observe(frame);
+    }
+  }
+
   // Jahr in der Fußzeile
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
