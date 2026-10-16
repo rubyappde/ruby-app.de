@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ruby-Einladung</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0B0B0D">
+  <!-- Vorschau in WhatsApp & Co. -->
+  <meta property="og:title" content="Du bist zu Ruby eingeladen">
+  <meta property="og:description" content="Tippen, um in Ruby abzustimmen und dabei zu sein.">
+  <meta property="og:image" content="https://ruby-app.de/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Ruby Startseite"><img src="/assets/logo.png" alt=""><span>Ruby</span></a>
+    </div>
+  </header>
+
+  <main class="center">
+    <div class="box">
+      <img class="logo" src="/assets/logo.png" alt="">
+
+      <!-- Link ist gültig -->
+      <div id="ok" hidden>
+        <h1>Du bist eingeladen</h1>
+        <p id="ok-text">Öffne die Einladung in Ruby, um abzustimmen und dabei zu sein.</p>
+        <div class="actions">
+          <a class="btn" id="open" href="#">In Ruby öffnen</a>
+        </div>
+        <div id="noapp" hidden style="margin-top:36px">
+          <p style="margin-bottom:18px">Noch kein Ruby? Hol dir die App und tipp danach noch einmal auf den Link.</p>
+          <div class="actions" id="stores"></div>
+        </div>
+      </div>
+
+      <!-- Link ist unvollständig -->
+      <div id="bad" hidden>
+        <h1>Dieser Link ist unvollständig</h1>
+        <p>Vielleicht wurde er beim Kopieren abgeschnitten. Bitte die Person, dir den Ruby-Link noch einmal zu schicken.</p>
+        <div class="actions"><a class="btn ghost" href="/">Was ist Ruby?</a></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span data-year>2026</span> Ruby</span>
+      <nav aria-label="Rechtliches">
+        <a href="/impressum/">Impressum</a>
+        <a href="/datenschutz/">Datenschutz</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/config.js"></script>
+  <script src="/assets/site.js"></script>
+  <script>
+  // Der Inhalt einer Einladung steht im Link selbst (Ruby braucht keinen Server).
+  // Empfohlen: hinter dem #-Zeichen (ruby-app.de/r#d=…), dann erreicht er nie den Server.
+  // Aus Kompatibilität wird auch ?d=… gelesen.
+  (function () {
+    var cfg = window.RUBY || {};
+    var hash = new URLSearchParams(location.hash.replace(/^#/, ''));
+    var query = new URLSearchParams(location.search);
+    var d = hash.get('d') || query.get('d');
+    var g = hash.get('g') || query.get('g'); // alter Einladungslink
+
+    if (!d && !g) { document.getElementById('bad').hidden = false; return; }
+
+    var scheme = (cfg.appScheme || 'ruby') + '://';
+    var appUrl = d ? scheme + 'r?d=' + encodeURIComponent(d) : scheme + 'join?g=' + encodeURIComponent(g);
+
+    var open = document.getElementById('open');
+    open.href = appUrl;
+    document.getElementById('ok').hidden = false;
+
+    // Store-Knöpfe (oder „Bald verfügbar“)
+    var stores = document.getElementById('stores');
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    var add = function (href, label, ghost) {
+      var a = document.createElement('a');
+      a.className = 'btn' + (ghost ? ' ghost' : '');
+      a.href = href; a.textContent = label;
+      stores.appendChild(a);
+    };
+    if (cfg.appStoreUrl && !isAndroid) add(cfg.appStoreUrl, 'Im App Store laden', isIOS ? false : true);
+    if (cfg.playStoreUrl && !isIOS) add(cfg.playStoreUrl, 'Bei Google Play laden', isAndroid ? false : true);
+    if (!stores.children.length) {
+      add('/#warteliste', 'Ruby kommt bald: Warteliste', true);
+    }
+
+    // Prüfen, ob die App aufgegangen ist: Wenn die Seite nach kurzer Zeit noch sichtbar ist, Hilfe zeigen
+    var showHelp = function () { if (!document.hidden) document.getElementById('noapp').hidden = false; };
+    open.addEventListener('click', function () { setTimeout(showHelp, 1600); });
+
+    // Auf Android direkt versuchen. Auf dem iPhone erst nach Tipp (sonst zeigt Safari eine Fehlermeldung).
+    if (isAndroid) {
+      setTimeout(function () { location.href = appUrl; setTimeout(showHelp, 1600); }, 300);
+    } else if (!isIOS) {
+      // Computer: App gibt es dort nicht
+      document.getElementById('ok-text').textContent = 'Öffne diesen Link auf deinem Handy, um die Einladung in Ruby anzunehmen.';
+      open.hidden = true;
+      document.getElementById('noapp').hidden = false;
+    }
+  })();
+  </script>
+</body>
+</html>
