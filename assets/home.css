@@ -161,3 +161,22 @@
   .h-privacy { padding: 28px 22px; }
   .h-cta { padding: 56px 18px; }
 }
+
+/* ---------- Alles mittig ---------- */
+.h-head { margin-left: auto; margin-right: auto; text-align: center; }
+.h-video-side .tile, .h-points li { text-align: center; }
+.h-steps .tile { text-align: center; }
+.gemnum { margin: 4px auto; }
+.h-bento .shot { text-align: center; }
+.feat2 { text-align: center; }
+.feat2 svg { margin: 0 auto; }
+.feat2.wide { flex-direction: column; justify-content: center; gap: 0; }
+.feat2.wide h3 { margin-top: 14px; }
+.h-privacy { flex-direction: column; justify-content: center; text-align: center; }
+.h-privacy > div:last-child { flex: none; }
+.h-privacy p { margin: 0 auto; }
+.home footer .wrap { justify-content: center; text-align: center; }
+.home footer nav { margin-left: 0; justify-content: center; }
+@media (max-width: 640px) {
+  .feat2.wide { align-items: center; }
+}
